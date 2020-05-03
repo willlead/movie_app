@@ -2,7 +2,7 @@ import React from 'react';
 import prototype from "prop-types";
 import axios from "axios";
 import Moive from "./Movie";
-
+import "./App.css"
 
 class App extends React.Component {
   state = {
@@ -28,21 +28,29 @@ class App extends React.Component {
   }
   render() {
     const { isLoading, movies } = this.state;
-    return <div>
+    return <section className='container'>
       {
-        this.state.isLoading ? "Loading..." :
-          movies.map(movie => {
-            console.log(movie);
-            return <Moive
-              key={movie.id}
-              id={movie.id}
-              year={movie.year}
-              title={movie.title}
-              summary={movie.summary}
-              poster={movie.medium_cover_image} />
-          })}</div>
+        isLoading ?
+          (<div className="loader">
+            <span className="loader_text">
+              "Loading..."</span>
+          </div>
+          )
+          : (<div className="movies">
+            {movies.map(movie => (
+              < Moive
+                key={movie.id}
+                id={movie.id}
+                year={movie.year}
+                title={movie.title}
+                summary={movie.summary}
+                poster={movie.medium_cover_image}
+                genres= {movie.genres}
+              />
+            ) )}
+          </div>
+          )}
+    </section>
   }
-
-
 }
 export default App;
